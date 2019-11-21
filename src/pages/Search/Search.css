@@ -1,0 +1,25 @@
+.search {
+    height: 100vh;
+    padding: 8% 10%;
+
+}
+
+.objs {
+    width: 50rem;
+}
+
+.search__card__list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.search__input__search {
+    max-width: 1330px;
+    margin: auto;
+}
+
+.search__animation__loading {
+    height: 8%;
+    width: 8%;
+    padding-top: 20%;
+}

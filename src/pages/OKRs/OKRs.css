@@ -1,0 +1,346 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
+  font-family: 'Open Sans', Roboto , sans-serif;
+}
+
+html {
+height: 100%;
+}
+
+input[type=number] { 
+  width: 36px;
+}
+
+.content {
+height: 100vh;
+width: 95%;
+right: 0;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 8%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #0D639D;
+  z-index: 1;
+}
+
+.options {
+  position: fixed;
+  left: 0;
+  width: 5%;
+  background-color: #F4F6FA;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  justify-content: space-between;
+  padding-bottom: 1%;
+  align-items: center;
+}
+
+.nav {
+width: 90%;
+height: 40%;
+display: flex;
+flex-direction: column;
+}
+
+.nav a {
+height: 25%;
+width: 100%;
+display: flex;
+justify-content: center;
+text-align: center;
+list-style: none;
+color: #3E3672;
+padding: 1em 0 1em 0;
+border-bottom: 2px solid rgba(189, 189, 189, 0.2);
+}
+
+.options img {
+width: 65%;
+margin-top: 15%;
+justify-content: flex-end;
+}
+
+.options span {
+font-size: 1em;
+color: #3E3672;
+}
+
+.icon {
+padding-top: 3%;
+height: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+  background-color: #EEEEEE;
+}
+
+.option {
+position: relative;
+display: inline-block;
+}
+
+.option .tooltip {
+visibility: hidden;
+width: 120px;
+background-color: #CC3029;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 5px 0;
+position: absolute;
+z-index: 1;
+top: 37%;
+left: 90%;
+opacity: 0;
+transition: opacity 0.3s;
+}
+
+.option .tooltip::after {
+content: "";
+position: absolute;
+top: 33%;
+left: -3.9%;
+margin-left: -5px;
+border-width: 5px;
+border-style: solid;
+border-color: #CC3029 transparent transparent transparent;
+transform: rotate(90deg);
+}
+
+.option:hover .tooltip {
+visibility: visible;
+opacity: 1;
+}
+
+.notifyTab {
+display: flex;
+width: 5%;
+height: 100%;
+align-items: center;
+left: 200px;
+}
+
+.notify {
+width: 45%;
+height: 45%;
+}
+
+@mixin all-transition($time)
+{
+transition: all $time;
+-webkit-transition: all $time;
+}
+
+@mixin vertical-align($position) {
+position:$position;
+top: 50%;
+-webkit-transform: translateY(50%);
+-ms-transform: translateY(50%);
+transform: translateY(50%);
+}
+
+/* ListOKRs */
+
+.list_objectives-container {
+  flex: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: inline;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  
+}
+
+.list_objectives-infos {
+font-size: 1.3em;
+padding: 15px;
+color: #0D639D;
+flex-direction: inline;
+
+}
+
+.list_krs-infos {
+font-size: 1em;
+border-radius: 10px;
+padding: 15px;
+
+}
+
+
+/* ProgressBar */
+
+.localProgressBar{
+  flex: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.titleProgressbar {
+  height: 25px;
+  width: 350px;
+  border-radius: 5px;
+  border: 1px solid #3E3672;
+}
+
+.fillerProgressBar {
+  background:#3E3672;
+  height: 100%;
+  border-radius: inherit;
+  transition: width .2s ease-in;
+}
+
+/* Register Objective */
+
+.register_objective{
+  flex: auto;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.register_objective-title{
+  height: 30px; 
+  width: 400px;
+  border-radius: 5px;
+  border: 1px solid #3E3672;
+  color:#3E3672;
+  padding: 5px;
+  font-size: 1em;
+  text-align: center;
+  margin: 2%;
+}
+
+.register_objective-selector{
+  height: 32px; 
+  width: 130px;
+  border-radius: 5px;
+  border: 1px solid #3E3672;
+  color:#3E3672;
+  padding: 5px;
+  font-size: 1em;
+  text-align: center;
+  margin: 2%;
+}
+
+.register_objective-date{
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.register_objective-button {
+  height: 30px; 
+  width: 100px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color:  #3E3672;
+  text-align: center;
+  font-size: 1em;
+  margin: 2%;
+}
+
+.register_objective-buttonr:hover {
+  background-color: red;
+}
+
+.objective{
+  padding-top:80px;
+  padding-left: 80px;
+}
+
+/* Register KR */
+
+.register_kr{
+  flex: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: top;
+}
+
+.register_kr-title{
+  height: 30px; 
+  width: 350px;
+  border-radius: 5px;
+  border: 1px solid #3E3672;
+  color:#3E3672;
+  padding: 5px;
+  font-size: 1em;
+  text-align: center;
+  margin: 2%;
+}
+
+.register_kr-selector{
+  height: 32px; 
+  width: 100px;
+  border-radius: 5px;
+  border: 1px solid #3E3672;
+  color:#3E3672;
+  font-size: 1em;
+  text-align: center;
+  margin: 2%;
+}
+
+.register_kr-date{
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.register_kr-button {
+  height: 30px; 
+  width: 100px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color:  #3E3672;
+  text-align: center;
+  font-size: 1em;
+  margin: 2%;
+}
+
+.register_objective-buttonr:hover {
+  background-color: red;
+}
+
+.numero{
+  width: 50px;
+}
