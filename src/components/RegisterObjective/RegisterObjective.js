@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
+
 export default class RegisterObjective extends Component {
 
     constructor() {
@@ -48,9 +49,6 @@ export default class RegisterObjective extends Component {
         this.setState({ UpdateDate: event.target.value });
     }
 
-    // atualizaEstado(event){
-    //     this.setState({ [event.target.name]: event.target.value })
-    // }
 
     RegisterObjective(event) {
         event.preventDefault();
@@ -99,17 +97,17 @@ export default class RegisterObjective extends Component {
                     <Form.Row>
                         <Form.Group as={Col} md="auto">
                             <Form.Control as="select"
-                                value={this.state.Priority  || ''}
+                                value={this.state.Priority || ''}
                                 onChange={this.atualizaEstadoPriority.bind(this)}>
-                                <option defaultValue>Prioridade</option>
-                                <option value="2">Urgente</option>
-                                <option value="1">Alta</option>
-                                <option value="3">Baixa</option>
+                                <option defaultValue>Peso</option>
+                                <option value="1">25%</option>
+                                <option value="2">33,3%</option>
+                                <option value="3">50%</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} md="auto">
                             <Form.Control as="select"
-                                value={this.state.Type  || ''}
+                                value={this.state.Type || ''}
                                 onChange={this.atualizaEstadoType.bind(this)}>
                                 <option defaultValue>Tipo</option>
                                 <option value="0">Empresa</option>
@@ -119,7 +117,7 @@ export default class RegisterObjective extends Component {
                         </Form.Group>
                         <Form.Group as={Col} md="auto">
                             <Form.Control as="select"
-                                value={this.state.Term  || ''}
+                                value={this.state.Term || ''}
                                 onChange={this.atualizaEstadoTerm.bind(this)}>
                                 <option defaultValue>Período</option>
                                 <option value="0">Semanal</option>
@@ -129,16 +127,15 @@ export default class RegisterObjective extends Component {
                         </Form.Group>
                         <Form.Group as={Col} md="auto">
                             <input
-                                className="register_kr-date"
+                                className="input-date"
                                 type="date"
                                 value={this.state.FinalDate}
                                 onChange={this.atualizaEstadoFinalDate.bind(this)}
                                 id="Data Final"
-                                // name="FinalDate"
                             />
                         </Form.Group>
                     </Form.Row>
-
+                    
                     <Form.Group>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                             <Button variant="info" type="submit" onClick={this.RegisterObjective.bind(this)} >Cadastrar

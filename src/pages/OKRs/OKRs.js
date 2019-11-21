@@ -17,14 +17,13 @@ export default class Menu extends Component {
                         <Toolbars />
                     </div>
                 </header>
-                <div>
+                <div className="container">
                     <Accordion defaultActiveKey="1" >
                         <Card >
-                            <div className="d-flex justify-content-md-center" >
+                            <div>
                                 <Accordion.Toggle as={Card.Header}
                                     eventKey="0"
                                     variant="primary">
-
                                     <RegisterObjective />
                                 </Accordion.Toggle>
                             </div>

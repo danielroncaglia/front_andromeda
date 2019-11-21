@@ -10,12 +10,12 @@ export default class RegisterKR extends Component {
     constructor() {
         super();
         this.state = {
-            // Title: "",
+            Title: "",
             TypeValue: null,
             InitialValue: null,
             FinalValue: null,
             Weight: null,
-            Result: null,
+            Owner: "",
             FinalDate: "",
             UpdateDate: ""
         };
@@ -45,8 +45,8 @@ export default class RegisterKR extends Component {
         this.setState({ Weight: event.target.value });
     }
 
-    atualizaEstadoResult(event) {
-        this.setState({ Result: event.target.value });
+    atualizarEstadoFinalOwner(event){
+        this.setState({ Owner: event.target.value})
     }
 
     atualizaEstadoUpdateDate(event) {
@@ -66,9 +66,9 @@ export default class RegisterKR extends Component {
             initialValue: parseInt(this.state.InitialValue),
             finalValue: parseInt(this.state.FinalValue),
             weight: parseInt(this.state.Weight),
-            result: parseInt(this.state.Result),
+            owner: this.state.Owner,
             finalDate: this.state.FinalDate,
-            updateDate: "10/20/2019",
+            updateDate: this.state.FinalDate
         };
 
         const id = localStorage.getItem("idObjectiveAndromeda");
@@ -119,38 +119,29 @@ export default class RegisterKR extends Component {
                         </Form.Group>
                         <Form.Group as={Col} md="3">
                             <input type="number"
-                                className="numero"
+                                className="input-date"
                                 placeholder="Início"
-                                value={this.state.InitialValue}
+                                value={this.state.InitialValue || ''}
                                 onChange={this.atualizaEstadoInitialValue.bind(this)} />
                         </Form.Group>
 
                         <Form.Group as={Col} md="3">
                             <input type="number"
-                                className="numero"
+                                className="input-date"
                                 placeholder="Final"
-                                value={this.state.FinalValue}
+                                value={this.state.FinalValue || ''}
                                 onChange={this.atualizaEstadoFinalValue.bind(this)} />
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                     <Form.Group as={Col} md="auto">
                         <Form.Control
-                            // value={this.state.Owner}
-                            // onChange={this.atualizaEstadoOwner.bind(this)}
                             placeholder="Dono"
+                            value={this.state.Owner}
+                            onChange={this.atualizarEstadoFinalOwner.bind(this)}
                         />
                     </Form.Group >
-                    {/* <Form.Group as={Col} md="auto">
-                        <Form.Control as="select"
-                            value={this.state.Result}
-                            onChange={this.atualizaEstadoResult.bind(this)}>
-                            <option defaultValue="0">Resultado</option>
-                            <option value="2">Vermelho</option>
-                            <option value="3">Amarelo</option>
-                            <option value="4">Verde</option>
-                        </Form.Control>
-                    </Form.Group> */}
+
 
                     <Form.Group as={Col} md="auto">
                         <Form.Control as="select"
@@ -165,7 +156,7 @@ export default class RegisterKR extends Component {
 
                     <Form.Group as={Col} md="auto">
                         <input
-                            className="register_kr-date"
+                            className="input-date"
                             type="date"
                             value={this.state.FinalDate}
                             onChange={this.atualizaEstadoFinalDate.bind(this)}
