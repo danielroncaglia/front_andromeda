@@ -4,12 +4,14 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import api from '../../services/api';
 
 export default class RegisterKR extends Component {
 
     constructor() {
         super();
         this.state = {
+            listOwner: [],
             Title: "",
             TypeValue: null,
             InitialValue: null,
@@ -22,8 +24,15 @@ export default class RegisterKR extends Component {
     }
 
     componentDidMount() {
-
+        this.listOwner();
     }
+
+    listOwner = () => {
+        api.get("/objectives")
+            .then(response => this.setState({ listOwner: response.data }))
+            .catch(erro => console.log(erro))
+    }
+
 
     atualizaEstadoTitle(event) {
         this.setState({ Title: event.target.value });
@@ -45,8 +54,8 @@ export default class RegisterKR extends Component {
         this.setState({ Weight: event.target.value });
     }
 
-    atualizarEstadoFinalOwner(event){
-        this.setState({ Owner: event.target.value})
+    atualizarEstadoFinalOwner(event) {
+        this.setState({ Owner: event.target.value })
     }
 
     atualizaEstadoUpdateDate(event) {
@@ -66,7 +75,7 @@ export default class RegisterKR extends Component {
             initialValue: parseInt(this.state.InitialValue),
             finalValue: parseInt(this.state.FinalValue),
             weight: parseInt(this.state.Weight),
-            owner: this.state.Owner,
+            owner: this.state.Owner.name,
             finalDate: this.state.FinalDate,
             updateDate: this.state.FinalDate
         };
@@ -98,7 +107,7 @@ export default class RegisterKR extends Component {
                 <Form>
                     <Form.Row>
                         <Form.Group as={Col} sm={12}>
-                            <Form.Control 
+                            <Form.Control
                                 value={this.state.Title}
                                 onChange={this.atualizaEstadoTitle.bind(this)}
                                 placeholder="Resultados chave"
@@ -134,43 +143,57 @@ export default class RegisterKR extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                    <Form.Group as={Col} md="auto">
-                        <Form.Control
-                            placeholder="Dono"
-                            value={this.state.Owner}
-                            onChange={this.atualizarEstadoFinalOwner.bind(this)}
-                        />
-                    </Form.Group >
+                        <Form.Group as={Col} md="auto">
+                            <div>
+                                {
+                                    this.state.listOwner.map((item, index) => {
+                                        return (
+                                            <div>
 
+                                                <select 
+                                                className="input-date"                                                
+                                                name="Nome" 
+                                                value={this.state.Owner}>
+                                                    {item.kRs.map((kr) => {
+                                                        return <option key={kr} value={kr.owner.name}>{kr.owner.name}</option>;
+                                                    })}
+                                                </select>
 
-                    <Form.Group as={Col} md="auto">
-                        <Form.Control as="select"
-                            value={this.state.Weight}
-                            onChange={this.atualizaEstadoWeight.bind(this)}>
-                            <option defaultValue="0">Peso</option>
-                            <option value="2">25%</option>
-                            <option value="3">33%</option>
-                            <option value="4">50%</option>
-                        </Form.Control>
-                    </Form.Group>
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </div>
+                        </Form.Group >
 
-                    <Form.Group as={Col} md="auto">
-                        <input
-                            className="input-date"
-                            type="date"
-                            value={this.state.FinalDate}
-                            onChange={this.atualizaEstadoFinalDate.bind(this)}
-                            id="Data Final"
-                        />
-                    </Form.Group>
+                        <Form.Group as={Col} md="auto">
+                            <Form.Control as="select"
+                                value={this.state.Weight}
+                                onChange={this.atualizaEstadoWeight.bind(this)}>
+                                <option defaultValue="0">Peso</option>
+                                <option value="2">25%</option>
+                                <option value="3">33%</option>
+                                <option value="4">50%</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group as={Col} md="auto">
+                            <input
+                                className="input-date"
+                                type="date"
+                                value={this.state.FinalDate}
+                                onChange={this.atualizaEstadoFinalDate.bind(this)}
+                                id="Data Final"
+                            />
+                        </Form.Group>
                     </Form.Row>
 
-                <Form.Group>
-                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                        <Button variant="info" type="submit" onClick={this.RegisterKR.bind(this)} >Cadastrar
+                    <Form.Group>
+                        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                            <Button variant="info" type="submit" onClick={this.RegisterKR.bind(this)} >Cadastrar
                     </Button>
-                    </OverlayTrigger>
-                </Form.Group>
+                        </OverlayTrigger>
+                    </Form.Group>
 
                 </Form>
             </div >

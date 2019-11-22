@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Toolbars from '../../components/Toolbars/Toolbars';
 import SearchIcon from 'react-ionicons/lib/MdSearch';
 import { InputGroup, Card, Form } from "react-bootstrap";
-import Loading from 'react-loading';
 import axios from 'axios';
 import moment from 'moment';
 import './Search.css';
@@ -40,7 +39,12 @@ export default class SearchPage extends Component {
         let filtered = this.state.objsList.filter(x =>
             x.title.toLowerCase().includes(this.state.search.toLowerCase()) || x.owner.name.toLowerCase().includes(this.state.search.toLowerCase())
         );
-        this.setState({ filteredList: filtered });
+
+
+        if (filtered.length > 0)
+            this.setState({ filteredList: filtered });
+        else
+            this.setState({ filteredList: this.state.objsList });
     }
 
     uptadeSearch(event) {
@@ -97,13 +101,14 @@ export default class SearchPage extends Component {
                                 );
                             })
                         }
-                        <Loading
+                        {/* <Loading
                             style={{
                                 display: (this.state.loading) ? "block" : "none"
                             }}
                             type="spin"
+                            color={'#CC3029'}
                             className="search__animation__loading"
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>

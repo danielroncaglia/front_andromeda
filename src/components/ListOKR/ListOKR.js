@@ -6,6 +6,11 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import moment from 'moment';
+import api from '../../services/api';
+import UpdateIcon from 'react-ionicons/lib/MdCreate';
+import { Link } from 'react-router-dom';
+import DeleteIcon from 'react-ionicons/lib/MdTrash';
+
 
 export default class ListOKR extends Component {
 
@@ -22,18 +27,23 @@ export default class ListOKR extends Component {
     }
 
     listObjs = () => {
-        fetch('http://192.168.4.35:63600/objectives')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ listObjs: data })
-            })
+        api.get("/objectives")
+            .then(response => this.setState({ listObjs: response.data }))
             .catch(erro => console.log(erro))
     }
 
-    listKRs = (idObj) => {
-        axios.get(`http://192.168.4.35:63600/keyresults/${idObj}`)
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
+    excluirKr = (idObj, idKr) => {
+        api.delete(`/keyresults/${idObj}/${idKr}`)
+            .then(response => console.log(response))
+            .catch(error => console.log('Erro: ', error))
+    }
+
+    atualizarKr = (idObj, idKr, obj) => {
+        api.put(`/keyresults/${idObj}/${idKr}`, {
+            obj
+        })
+            .then(response => console.log(response))
+            .catch(error => console.log('Error: ', error))
     }
 
     tradutionEnumPriority = (priority) => {
@@ -188,7 +198,7 @@ export default class ListOKR extends Component {
                                                                     <Col md="12">
                                                                         <h6>{kr.title}</h6>
                                                                     </Col>
-                                                                    <Col md="4">
+                                                                    <Col md="3">
                                                                         <ProgressBar variant={this.colorProgressBar(kr.initialValue / kr.finalValue)}
                                                                             now={(kr.initialValue / kr.finalValue) * 100}
                                                                             label={`${kr.initialValue}${this.tradutionEnumTypeValue(kr.typeValue)}`
@@ -196,15 +206,15 @@ export default class ListOKR extends Component {
                                                                             }
                                                                         />
                                                                     </Col>
-                                                                    <Col md="2">
+                                                                    <Col md="1">
                                                                         <h6>Atual</h6>
-                                                                            <input
-                                                                                className="input-date"
-                                                                                type="number" 
-                                                                                value={kr.initialValue  || ''} 
-                                                                                onInput={(event) => {
-                                                                                    this.handleChange(event, kr.id, item.id)
-                                                                                }} />
+                                                                        <input
+                                                                            className="input-date"
+                                                                            type="number"
+                                                                            value={kr.initialValue || ''}
+                                                                            onInput={(event) => {
+                                                                                this.handleChange(event, kr.id, item.id)
+                                                                            }} />
 
                                                                     </Col>
 
@@ -224,7 +234,21 @@ export default class ListOKR extends Component {
                                                                         <h6>Prazo</h6>
                                                                         <h6 >{moment(kr.finalDate).format("DD/MM/YYYY").split('T00:00:00')}</h6>
                                                                     </Col>
-
+                                                                    <Col md="1">
+                                                                        <Link className="option" to="/">
+                                                                            <UpdateIcon color="#3E3672" className="icon"
+                                                                                fontSize="26px" /></Link>
+                                                                    </Col>
+                                                                    <Col md="1">
+                                                                        <Link className="option" to="/">
+                                                                            <DeleteIcon
+                                                                                color="#3E3672"
+                                                                                className="icon"
+                                                                                fontSize="26px"
+                                                                                onClick={() => this.excluirKr(item.id, kr.id)}
+                                                                            />
+                                                                        </Link>
+                                                                    </Col>
                                                                 </Row>
                                                             );
                                                         })

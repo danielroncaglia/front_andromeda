@@ -20,9 +20,9 @@ export default class BarrasMenu extends Component {
 
                     <nav className="nav">
                         <Link className="option" to="/"><TrophyIcon color="#3E3672" className="icon" fontSize="30px" /><span className="tooltip">OKRs</span></Link>
-                        <Link className="option" to="*"><DashboardIcon color="#3E3672" className="icon" fontSize="30px" /><span className="tooltip">Dashboard</span></Link>
+                        <Link className="option" to="/dashboard"><DashboardIcon color="#3E3672" className="icon" fontSize="30px" /><span className="tooltip">Dashboard</span></Link>
                         <Link className="option" to="/search"><SearchIcon color="#3E3672" className="icon" fontSize="30px" /><span className="tooltip">Search</span></Link>
-                        <Link className="option" to="/aboutOKRS"><InfoIcon color="#3E3672" className="icon" fontSize="30px" /><span className="tooltip">About</span></Link>
+                        <Link className="option" to="/about"><InfoIcon color="#3E3672" className="icon" fontSize="30px" /><span className="tooltip">About</span></Link>
                     </nav>
 
                     <span>©</span>

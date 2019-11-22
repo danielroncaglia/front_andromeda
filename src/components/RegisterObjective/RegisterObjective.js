@@ -59,7 +59,7 @@ export default class RegisterObjective extends Component {
             term: parseInt(this.state.Term),
             type: parseInt(this.state.Type),
             finalDate: this.state.FinalDate,
-            updateDate: "10/20/2019"
+            updateDate: this.state.UpdateDate,
         };
 
         axios.post("http://192.168.4.35:63600/objectives", objective)
@@ -120,7 +120,6 @@ export default class RegisterObjective extends Component {
                                 value={this.state.Term || ''}
                                 onChange={this.atualizaEstadoTerm.bind(this)}>
                                 <option defaultValue>Período</option>
-                                <option value="0">Semanal</option>
                                 <option value="1">Trimestral</option>
                                 <option value="2">Anual</option>
                             </Form.Control>
@@ -135,7 +134,7 @@ export default class RegisterObjective extends Component {
                             />
                         </Form.Group>
                     </Form.Row>
-                    
+
                     <Form.Group>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                             <Button variant="info" type="submit" onClick={this.RegisterObjective.bind(this)} >Cadastrar
