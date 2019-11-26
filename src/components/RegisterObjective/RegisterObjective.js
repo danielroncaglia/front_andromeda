@@ -16,8 +16,8 @@ export default class RegisterObjective extends Component {
             Priority: null,
             Term: null,
             Type: null,
-            FinalDate: "",
-            UpdateDate: ""
+            FinalDate: ""
+            // UpdateDate: ""
         };
     }
 
@@ -45,9 +45,9 @@ export default class RegisterObjective extends Component {
         this.setState({ FinalDate: event.target.value });
     }
 
-    atualizaEstadoUpdateDate(event) {
-        this.setState({ UpdateDate: event.target.value });
-    }
+    // atualizaEstadoUpdateDate(event) {
+    //     this.setState({ UpdateDate: event.target.value });
+    // }
 
 
     RegisterObjective(event) {
@@ -59,7 +59,7 @@ export default class RegisterObjective extends Component {
             term: parseInt(this.state.Term),
             type: parseInt(this.state.Type),
             finalDate: this.state.FinalDate,
-            updateDate: this.state.UpdateDate,
+            // updateDate: this.state.UpdateDate,
         };
 
         axios.post("http://192.168.4.35:63600/objectives", objective)

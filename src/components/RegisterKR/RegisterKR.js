@@ -144,12 +144,11 @@ export default class RegisterKR extends Component {
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} md="auto">
-                            <div>
+                            {/* <div>
                                 {
-                                    this.state.listOwner.map((item, index) => {
+                                    this.state.listOwner.map((item) => {
                                         return (
                                             <div>
-
                                                 <select 
                                                 className="input-date"                                                
                                                 name="Nome" 
@@ -163,7 +162,7 @@ export default class RegisterKR extends Component {
                                         );
                                     })
                                 }
-                            </div>
+                            </div> */}
                         </Form.Group >
 
                         <Form.Group as={Col} md="auto">

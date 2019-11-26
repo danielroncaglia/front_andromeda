@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Accordion from 'react-bootstrap/Accordion';
@@ -10,7 +9,14 @@ import api from '../../services/api';
 import UpdateIcon from 'react-ionicons/lib/MdCreate';
 import { Link } from 'react-router-dom';
 import DeleteIcon from 'react-ionicons/lib/MdTrash';
-
+import quarter from '../../assets/images/quarter.png';
+import third from '../../assets/images/third.png';
+import half from '../../assets/images/half.png';
+import Avatar from 'react-ionicons/lib/IosPerson';
+import InputKR from '../InputKR';
+import company from '../../assets/images/company.png';
+import team from '../../assets/images/team.png';
+import person from '../../assets/images/person.png';
 
 export default class ListOKR extends Component {
 
@@ -38,6 +44,12 @@ export default class ListOKR extends Component {
             .catch(error => console.log('Erro: ', error))
     }
 
+    excluirObj = (idObj, idKr) => {
+        api.delete(`/objectives/${idObj}`)
+            .then(response => console.log(response))
+            .catch(error => console.log('Erro: ', error))
+    }
+
     atualizarKr = (idObj, idKr, obj) => {
         api.put(`/keyresults/${idObj}/${idKr}`, {
             obj
@@ -48,21 +60,21 @@ export default class ListOKR extends Component {
 
     tradutionEnumPriority = (priority) => {
         if (priority === 1) {
-            return "25%"
+            return  <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
         } else if (priority === 2) {
-            return "33,3%"
+            return <div className="option2" ><img src={third} className="fractions" /><span className="tooltip2">1/3</span></div>
         } else if (priority === 3) {
-            return "50%"
+            return <div className="option2" ><img src={half} className="fractions" /><span className="tooltip2">1/2</span></div>
         }
     }
 
     tradutionEnumType = (type) => {
         if (type === 0) {
-            return "Empresa"
+            return <div className="option2" ><img src={company} className="fractions" /><span className="tooltip2">Company</span></div>
         } else if (type === 1) {
-            return "Equipe"
+            return <div className="option2" ><img src={team} className="fractions" /><span className="tooltip2">Team</span></div>
         } else if (type === 2) {
-            return "Individual"
+            return <div className="option2" ><img src={person} className="fractions" /><span className="tooltip2">Person</span></div>
         }
     }
 
@@ -80,11 +92,11 @@ export default class ListOKR extends Component {
 
     tradutionEnumWeight = (type) => {
         if (type === 2) {
-            return "25%"
+            return  <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
+        } else if (type === 2) {
+            return <div className="option2" ><img src={third} className="fractions" /><span className="tooltip2">1/3</span></div>
         } else if (type === 3) {
-            return "33,3%"
-        } else if (type === 4) {
-            return "50%"
+            return <div className="option2" ><img src={half} className="fractions" /><span className="tooltip2">1/2</span></div>
         }
     }
 
@@ -161,7 +173,7 @@ export default class ListOKR extends Component {
                                                 <Col md="12">
                                                     <h6>{item.title}</h6>
                                                 </Col>
-                                                <Col md="6">
+                                                <Col md="5">
                                                     <ProgressBar variant={this.colorProgressBar(this.calculaValorOkrs(item.kRs) / 100)}
                                                         now={this.calculaValorOkrs(item.kRs)}
                                                         label={this.calculaValorOkrs(item.kRs).toFixed(0) + `%`} />
@@ -171,7 +183,7 @@ export default class ListOKR extends Component {
                                                     <h6>{this.tradutionEnumType(item.type)}</h6>
                                                 </Col>
                                                 <Col md="auto">
-                                                    <h6>Dono</h6>
+                                                    <Avatar />
                                                     <h6>{item.owner.name}</h6>
                                                 </Col>
                                                 <Col md="auto">
@@ -182,8 +194,21 @@ export default class ListOKR extends Component {
                                                     <h6>Prazo</h6>
                                                     <h6 >{moment(item.finalDate).format("DD/MM/YYYY").split('T00:00:00')}</h6>
                                                 </Col>
-
-
+                                                <Col md="1">
+                                                    <Link className="option" to="/">
+                                                        <UpdateIcon color="#3E3672" className="icon"
+                                                            fontSize="26px" /></Link>
+                                                </Col>
+                                                <Col md="1">
+                                                    <Link className="option" to="/">
+                                                        <DeleteIcon
+                                                            color="#3E3672"
+                                                            className="icon"
+                                                            fontSize="26px"
+                                                            onClick={() => this.excluirObj(item.id)}
+                                                        />
+                                                    </Link>
+                                                </Col>
                                             </Row>
                                         </Accordion.Toggle>
                                     </div>
@@ -191,6 +216,7 @@ export default class ListOKR extends Component {
                                         <Accordion.Collapse id={'objective-' + item.id} eventKey={index}>
                                             <Card.Body>
                                                 <div className="justify-content-md-center">
+                                                    <InputKR />
                                                     {
                                                         item.kRs === null ? '' : item.kRs.map((kr) => {
                                                             return (
@@ -212,18 +238,16 @@ export default class ListOKR extends Component {
                                                                             className="input-date"
                                                                             type="number"
                                                                             value={kr.initialValue || ''}
-                                                                            onInput={(event) => {
+                                                                            onChange={(event) => {
                                                                                 this.handleChange(event, kr.id, item.id)
                                                                             }} />
-
                                                                     </Col>
-
                                                                     <Col md="1">
                                                                         <h6>KR</h6>
                                                                         <h6>{kr.finalValue}</h6>
                                                                     </Col>
                                                                     <Col md="2">
-                                                                        <h6>Dono</h6>
+                                                                        <Avatar />
                                                                         <h6>{kr.owner.name}</h6>
                                                                     </Col>
                                                                     <Col md="1">

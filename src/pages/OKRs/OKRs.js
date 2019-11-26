@@ -7,6 +7,7 @@ import ListOKR from '../../components/ListOKR/ListOKR'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 export default class Menu extends Component {
     render() {
@@ -20,10 +21,9 @@ export default class Menu extends Component {
                 <div>
                     <Accordion defaultActiveKey="1" >
                         <Card >
-                            <div className="d-flex justify-content-md-center" >
-                                <Accordion.Toggle as={Card.Header}
-                                    eventKey="0" 
-                                    variant="primary">
+                            <div className="justify-content-md-center" >
+                                <Accordion.Toggle as={Card}
+                                    eventKey="0" >
 
                                     <RegisterObjective />
                                 </Accordion.Toggle>

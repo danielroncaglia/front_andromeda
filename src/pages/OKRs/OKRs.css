@@ -201,7 +201,19 @@ padding: 15px;
   transition: width .2s ease-in;
 }
 
+.fractions{
+  width: 20px;
+  height: 20px;
+}
+
 /* Register Objective */
+
+.informacao{
+  flex: auto;
+  padding-top: 80px;
+  display: inline;
+  justify-content: center;
+}
 
 .register_objective{
   flex: auto;
@@ -340,3 +352,40 @@ padding: 15px;
 .numero{
   width: 50px;
 }
+
+.option2 {
+  position: relative;
+  display: inline-block;
+  }
+  
+  .option2 .tooltip2 {
+  visibility: hidden;
+  width: 120px;
+  background-color: #3e3672 ;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  }
+  
+  .option2 .tooltip2::after {
+  content: "";
+  position: absolute;
+  top: 35%;
+  left: -3.9%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #3e3672 transparent transparent transparent;
+  transform: rotate(90deg);
+  }
+  
+  .option2:hover .tooltip2 {
+  visibility: visible;
+  opacity: 1;
+  }
