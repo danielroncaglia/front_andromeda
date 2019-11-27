@@ -16,6 +16,7 @@ export default function CustomToggle({ children, eventKey }) {
                 border: '1px solid transparent',
                 lineHeight: '1.5',
                 borderRadius: '.25rem',
+                with: '80px',
                 display: 'inline-block' }}
             onClick={decoratedOnClick}
         >

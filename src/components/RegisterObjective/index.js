@@ -17,7 +17,6 @@ export default class RegisterObjective extends Component {
             Term: null,
             Type: null,
             FinalDate: ""
-            // UpdateDate: ""
         };
     }
 
@@ -64,11 +63,14 @@ export default class RegisterObjective extends Component {
 
         axios.post("http://192.168.4.35:63600/objectives", objective)
             .then(data => {
+                this.props.listFnc();
+                
                 localStorage.setItem("idObjectiveAndromeda", data.data.id);
             })
             .catch(erro => console.log("Erro: ", erro))
 
     }
+
     render() {
 
         const popover = (
@@ -100,9 +102,10 @@ export default class RegisterObjective extends Component {
                                 value={this.state.Priority || ''}
                                 onChange={this.atualizaEstadoPriority.bind(this)}>
                                 <option defaultValue>Peso</option>
-                                <option value="1">25%</option>
-                                <option value="2">33,3%</option>
-                                <option value="3">50%</option>
+                                <option value="0">1/5</option>
+                                <option value="1">1/4</option>
+                                <option value="2">1/3</option>
+                                <option value="3">1/2</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} md="auto">
@@ -137,7 +140,9 @@ export default class RegisterObjective extends Component {
 
                     <Form.Group>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                            <Button variant="info" type="submit" onClick={this.RegisterObjective.bind(this)} >Cadastrar
+                            <Button variant="info" type="submit" onClick={
+                                this.RegisterObjective.bind(this)
+                            } >Cadastrar
                     </Button>
                         </OverlayTrigger>
                     </Form.Group>

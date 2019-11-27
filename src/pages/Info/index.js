@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Toolbars from '../../components/Toolbars/Toolbars';
+import Toolbars from '../../components/Toolbars/index';
 import {Link } from 'react-router-dom';
 import '../Info/Info.css';
 import Card from 'react-bootstrap/Card';

@@ -89,7 +89,7 @@ export default class RegisterKR extends Component {
                 "Content-Type": "application/json"
             })
         })
-            .then(resposta => console.log(resposta))
+            .then(resposta =>  this.props.listFnc())
             .catch(erro => console.log("Erro: ", erro))
     }
 
@@ -144,8 +144,8 @@ export default class RegisterKR extends Component {
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} md="auto">
-                            {/* <div>
-                                {
+                            <div>
+                                {/* {
                                     this.state.listOwner.map((item) => {
                                         return (
                                             <div>
@@ -161,8 +161,8 @@ export default class RegisterKR extends Component {
                                             </div>
                                         );
                                     })
-                                }
-                            </div> */}
+                                } */}
+                            </div>
                         </Form.Group >
 
                         <Form.Group as={Col} md="auto">
@@ -170,9 +170,10 @@ export default class RegisterKR extends Component {
                                 value={this.state.Weight}
                                 onChange={this.atualizaEstadoWeight.bind(this)}>
                                 <option defaultValue="0">Peso</option>
-                                <option value="2">25%</option>
-                                <option value="3">33%</option>
-                                <option value="4">50%</option>
+                                <option value="0">1/5</option>
+                                <option value="1">1/4</option>
+                                <option value="2">1/3</option>
+                                <option value="3">1/2</option>
                             </Form.Control>
                         </Form.Group>
 

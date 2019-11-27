@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import logo from '../../assets/images/onlyLogo.png';
+import { Link } from 'react-router-dom';
 import DashboardIcon from 'react-ionicons/lib/MdTrendingUp';
 import SearchIcon from 'react-ionicons/lib/IosSearchOutline';
 import TrophyIcon from 'react-ionicons/lib/IosTrophy';
-import { Link } from 'react-router-dom';
 import InfoIcon from 'react-ionicons/lib/IosInformationCircleOutline';
 
 export default class BarrasMenu extends Component {

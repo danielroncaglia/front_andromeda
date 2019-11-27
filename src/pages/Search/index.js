@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Toolbars from '../../components/Toolbars/Toolbars';
+import Toolbars from '../../components/Toolbars/index';
 import SearchIcon from 'react-ionicons/lib/MdSearch';
 import { InputGroup, Card, Form } from "react-bootstrap";
 import axios from 'axios';

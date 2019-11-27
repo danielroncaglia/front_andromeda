@@ -17,36 +17,37 @@ import InputKR from '../InputKR';
 import company from '../../assets/images/company.png';
 import team from '../../assets/images/team.png';
 import person from '../../assets/images/person.png';
+import AppContar from '../../components/AppContar/index';
 
 export default class ListOKR extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            listObjs: [],
+            // listObjs: [],
             clicks: 0
         }
     }
 
-    componentDidMount() {
-        this.listObjs();
-    }
+    // componentDidMount() {
+    //     this.listObjs();
+    // }
 
-    listObjs = () => {
-        api.get("/objectives")
-            .then(response => this.setState({ listObjs: response.data }))
-            .catch(erro => console.log(erro))
-    }
+    // listObjs = () => {
+    //     api.get("/objectives")
+    //         .then(response => this.setState({ listObjs: response.data }))
+    //         .catch(erro => console.log(erro))
+    // }
 
     excluirKr = (idObj, idKr) => {
         api.delete(`/keyresults/${idObj}/${idKr}`)
-            .then(response => console.log(response))
+            .then(response => this.props.listFnc())
             .catch(error => console.log('Erro: ', error))
     }
 
     excluirObj = (idObj, idKr) => {
         api.delete(`/objectives/${idObj}`)
-            .then(response => console.log(response))
+            .then(response => this.props.listFnc())
             .catch(error => console.log('Erro: ', error))
     }
 
@@ -58,12 +59,14 @@ export default class ListOKR extends Component {
             .catch(error => console.log('Error: ', error))
     }
 
-    tradutionEnumPriority = (priority) => {
-        if (priority === 1) {
-            return  <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
-        } else if (priority === 2) {
+    tradutionEnumPriority = (type) => {
+        if (type === 0) {
+            return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
+        } else if (type === 1) {
+            return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
+        } else if (type === 2) {
             return <div className="option2" ><img src={third} className="fractions" /><span className="tooltip2">1/3</span></div>
-        } else if (priority === 3) {
+        } else if (type === 3) {
             return <div className="option2" ><img src={half} className="fractions" /><span className="tooltip2">1/2</span></div>
         }
     }
@@ -91,8 +94,10 @@ export default class ListOKR extends Component {
     }
 
     tradutionEnumWeight = (type) => {
-        if (type === 2) {
-            return  <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
+        if (type === 0) {
+            return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
+        } else if (type === 1) {
+            return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
         } else if (type === 2) {
             return <div className="option2" ><img src={third} className="fractions" /><span className="tooltip2">1/3</span></div>
         } else if (type === 3) {
@@ -162,18 +167,21 @@ export default class ListOKR extends Component {
         return (
             <div className="container">
                 {
-                    this.state.listObjs.map((item, index) => {
+                    this.props.listObjs.map((item, index) => {
                         return (
                             <Accordion key={index} >
-                                <Card className="justify-content-md-center padding">
+                                <Card className="justify-content-md-center padding"
+                                    style={{ margin: '20px 20px 20px 20px' }}>
+
                                     <div >
-                                        <Accordion.Toggle
-                                            as={Card.Header} eventKey={index} key={item.id}>
-                                            <Row>
+                                        <Accordion.Toggle as={Card.Header} eventKey={index} key={item.id}>
+                                            <Row   >
                                                 <Col md="12">
                                                     <h6>{item.title}</h6>
                                                 </Col>
-                                                <Col md="5">
+                                            </Row>
+                                            <Row>
+                                                <Col md="4">
                                                     <ProgressBar variant={this.colorProgressBar(this.calculaValorOkrs(item.kRs) / 100)}
                                                         now={this.calculaValorOkrs(item.kRs)}
                                                         label={this.calculaValorOkrs(item.kRs).toFixed(0) + `%`} />
@@ -193,16 +201,16 @@ export default class ListOKR extends Component {
                                                 <Col md="auto" >
                                                     <h6>Prazo</h6>
                                                     <h6 >{moment(item.finalDate).format("DD/MM/YYYY").split('T00:00:00')}</h6>
+                                                    <AppContar/>
                                                 </Col>
                                                 <Col md="1">
                                                     <Link className="option" to="/">
-                                                        <UpdateIcon color="#3E3672" className="icon"
+                                                        <UpdateIcon className="icon"
                                                             fontSize="26px" /></Link>
                                                 </Col>
                                                 <Col md="1">
                                                     <Link className="option" to="/">
                                                         <DeleteIcon
-                                                            color="#3E3672"
                                                             className="icon"
                                                             fontSize="26px"
                                                             onClick={() => this.excluirObj(item.id)}
@@ -216,11 +224,11 @@ export default class ListOKR extends Component {
                                         <Accordion.Collapse id={'objective-' + item.id} eventKey={index}>
                                             <Card.Body>
                                                 <div className="justify-content-md-center">
-                                                    <InputKR />
+
                                                     {
                                                         item.kRs === null ? '' : item.kRs.map((kr) => {
                                                             return (
-                                                                <Row key={kr.id} >
+                                                                <Row key={kr.id}>
                                                                     <Col md="12">
                                                                         <h6>{kr.title}</h6>
                                                                     </Col>
@@ -254,19 +262,19 @@ export default class ListOKR extends Component {
                                                                         <h6>Peso</h6>
                                                                         <h6>{this.tradutionEnumWeight(kr.weight)}</h6>
                                                                     </Col>
-                                                                    <Col md="2" >
+                                                                    {/* <Col md="2" >
                                                                         <h6>Prazo</h6>
+
                                                                         <h6 >{moment(kr.finalDate).format("DD/MM/YYYY").split('T00:00:00')}</h6>
-                                                                    </Col>
+                                                                    </Col> */}
                                                                     <Col md="1">
                                                                         <Link className="option" to="/">
-                                                                            <UpdateIcon color="#3E3672" className="icon"
+                                                                            <UpdateIcon className="icon"
                                                                                 fontSize="26px" /></Link>
                                                                     </Col>
                                                                     <Col md="1">
                                                                         <Link className="option" to="/">
                                                                             <DeleteIcon
-                                                                                color="#3E3672"
                                                                                 className="icon"
                                                                                 fontSize="26px"
                                                                                 onClick={() => this.excluirKr(item.id, kr.id)}
@@ -277,6 +285,10 @@ export default class ListOKR extends Component {
                                                             );
                                                         })
                                                     }
+                                                </div>
+                                                <div className="justify-content-md-center padding"
+                                                style={{padding:"20px 20px 20px 20px"}} >
+                                                    <InputKR />
                                                 </div>
                                             </Card.Body>
                                         </Accordion.Collapse>

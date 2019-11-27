@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Toolbars from '../../components/Toolbars/Toolbars'
+import Toolbars from '../../components/Toolbars/index'
 import './Dashboard.css';
 import { Line } from 'react-chartjs-2';
 
