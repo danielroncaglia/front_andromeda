@@ -1,3 +1,33 @@
-.main__dashboard__contain {
-    padding-top: 10%;
+.txtW {
+    color: white;
+}
+
+.main__dashboard__contain1 {
+    height: 40vh;
+}
+
+.main__cards__contain {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80vw;
+    margin: auto;
+    margin-bottom: 3%;
+    padding-top: 7%;
+}
+
+.main__dashboard__contain2 {
+    height: 26vh;
+    display: flex;
+    width: 80vw;
+    margin: auto;
+    justify-content: space-around;
+}
+
+.main__graphic__contain {
+    height: 10%;
+}
+
+.main__cards__data {
+    box-shadow: 1px 2px 3px #999;
 }

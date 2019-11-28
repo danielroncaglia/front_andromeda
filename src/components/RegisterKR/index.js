@@ -89,7 +89,7 @@ export default class RegisterKR extends Component {
                 "Content-Type": "application/json"
             })
         })
-            .then(resposta =>  this.props.listFnc())
+            .then(resposta => resposta)
             .catch(erro => console.log("Erro: ", erro))
     }
 
@@ -157,7 +157,6 @@ export default class RegisterKR extends Component {
                                                         return <option key={kr} value={kr.owner.name}>{kr.owner.name}</option>;
                                                     })}
                                                 </select>
-
                                             </div>
                                         );
                                     })

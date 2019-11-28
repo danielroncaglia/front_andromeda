@@ -4,7 +4,7 @@ import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 export default function CustomToggle({ children, eventKey }) {
 
     const decoratedOnClick = useAccordionToggle(eventKey, () =>
-        console.log('totally custom!'),
+        console.log(),
     );
 
     return (

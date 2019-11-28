@@ -55,7 +55,7 @@ export default class Menu extends Component {
                             <div>
                                 <Accordion.Collapse eventKey="0" >
                                     <Card.Body>
-                                        <RegisterKR  listFnc={this.listObjs} />
+                                        <RegisterKR  />
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomToggle from '../CustomToogle';
 import Accordion from 'react-bootstrap/Accordion';
-import Card, { CardBody } from 'react-bootstrap/Card';
+import Card from 'react-bootstrap/Card';
 import RegisterKR from '../RegisterKR/index';
 
 export default function InputKR() {

@@ -24,20 +24,22 @@ export default class ListOKR extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // listObjs: [],
+            listObjs: [
+                // ...this.props.listObjs
+            ],
             clicks: 0
         }
     }
 
-    // componentDidMount() {
-    //     this.listObjs();
-    // }
+    componentDidMount() {
+        this.listObjs();
+    }
 
-    // listObjs = () => {
-    //     api.get("/objectives")
-    //         .then(response => this.setState({ listObjs: response.data }))
-    //         .catch(erro => console.log(erro))
-    // }
+    listObjs = () => {
+        api.get("/objectives")
+            .then(response => this.setState({ listObjs: response.data }))
+            .catch(erro => console.log(erro))
+    }
 
     excluirKr = (idObj, idKr) => {
         api.delete(`/keyresults/${idObj}/${idKr}`)
@@ -60,35 +62,35 @@ export default class ListOKR extends Component {
     }
 
     tradutionEnumPriority = (type) => {
-        if (type === 0) {
-            return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
-        } else if (type === 1) {
+        if (type === 1) {
             return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
         } else if (type === 2) {
-            return <div className="option2" ><img src={third} className="fractions" /><span className="tooltip2">1/3</span></div>
+            return <div className="option2" ><img src={quarter} className="fractions" /><span className="tooltip2">1/4</span></div>
         } else if (type === 3) {
+            return <div className="option2" ><img src={third} className="fractions" /><span className="tooltip2">1/3</span></div>
+        } else if (type === 4) {
             return <div className="option2" ><img src={half} className="fractions" /><span className="tooltip2">1/2</span></div>
         }
     }
 
     tradutionEnumType = (type) => {
-        if (type === 0) {
+        if (type === 1) {
             return <div className="option2" ><img src={company} className="fractions" /><span className="tooltip2">Company</span></div>
-        } else if (type === 1) {
-            return <div className="option2" ><img src={team} className="fractions" /><span className="tooltip2">Team</span></div>
         } else if (type === 2) {
+            return <div className="option2" ><img src={team} className="fractions" /><span className="tooltip2">Team</span></div>
+        } else if (type === 3) {
             return <div className="option2" ><img src={person} className="fractions" /><span className="tooltip2">Person</span></div>
         }
     }
 
     tradutionEnumTypeValue = (type) => {
-        if (type === 2) {
+        if (type === 1) {
             return "%"
-        } else if (type === 3) {
+        } else if (type === 2) {
             return " unidades"
-        } else if (type === 4) {
+        } else if (type === 3) {
             return " $"
-        } else if (type === 5) {
+        } else if (type === 4) {
             return " outros"
         }
     }
@@ -134,15 +136,12 @@ export default class ListOKR extends Component {
 
     handleChange = (event, idKr, idObjective) => {
         event.preventDefault();
-        console.log(idKr + " - " + idObjective)
         let lista = this.state.listObjs;
         lista.map((item) => {
             if (item.id === idObjective) {
-                console.log(item);
                 item.kRs.map((kr) => {
                     if (kr.id === idKr) {
                         if (event.target.value >= 0 && event.target.value <= kr.finalValue) {
-                            console.log(kr.title);
                             kr.initialValue = event.target.value;
                             this.setState({ listObjs: lista })
                             document.getElementById('objective-' + idObjective).classList.add('show')
@@ -167,7 +166,7 @@ export default class ListOKR extends Component {
         return (
             <div className="container">
                 {
-                    this.props.listObjs.map((item, index) => {
+                    this.state.listObjs.map((item, index) => {
                         return (
                             <Accordion key={index} >
                                 <Card className="justify-content-md-center padding"
@@ -177,7 +176,7 @@ export default class ListOKR extends Component {
                                         <Accordion.Toggle as={Card.Header} eventKey={index} key={item.id}>
                                             <Row   >
                                                 <Col md="12">
-                                                    <h6>{item.title}</h6>
+                                                    <h5>{item.title}</h5>
                                                 </Col>
                                             </Row>
                                             <Row>
@@ -215,6 +214,7 @@ export default class ListOKR extends Component {
                                                             fontSize="26px"
                                                             onClick={() => this.excluirObj(item.id)}
                                                         />
+                                                      
                                                     </Link>
                                                 </Col>
                                             </Row>
@@ -223,16 +223,18 @@ export default class ListOKR extends Component {
                                     <div>
                                         <Accordion.Collapse id={'objective-' + item.id} eventKey={index}>
                                             <Card.Body>
-                                                <div className="justify-content-md-center">
+                                                <div className="justify-content-md-center"
+                                                style={{ margin: '20px 20px 20px 20px' }}>
 
                                                     {
                                                         item.kRs === null ? '' : item.kRs.map((kr) => {
                                                             return (
                                                                 <Row key={kr.id}>
-                                                                    <Col md="12">
-                                                                        <h6>{kr.title}</h6>
+                                                                    <Col md="12"
+                                                                    style={{margin:"20x 20x 20x 20x"}}>
+                                                                        <h5>{kr.title}</h5>
                                                                     </Col>
-                                                                    <Col md="3">
+                                                                    <Col md="4">
                                                                         <ProgressBar variant={this.colorProgressBar(kr.initialValue / kr.finalValue)}
                                                                             now={(kr.initialValue / kr.finalValue) * 100}
                                                                             label={`${kr.initialValue}${this.tradutionEnumTypeValue(kr.typeValue)}`
@@ -240,7 +242,7 @@ export default class ListOKR extends Component {
                                                                             }
                                                                         />
                                                                     </Col>
-                                                                    <Col md="1">
+                                                                    <Col md="2">
                                                                         <h6>Atual</h6>
                                                                         <input
                                                                             className="input-date"
@@ -262,11 +264,6 @@ export default class ListOKR extends Component {
                                                                         <h6>Peso</h6>
                                                                         <h6>{this.tradutionEnumWeight(kr.weight)}</h6>
                                                                     </Col>
-                                                                    {/* <Col md="2" >
-                                                                        <h6>Prazo</h6>
-
-                                                                        <h6 >{moment(kr.finalDate).format("DD/MM/YYYY").split('T00:00:00')}</h6>
-                                                                    </Col> */}
                                                                     <Col md="1">
                                                                         <Link className="option" to="/">
                                                                             <UpdateIcon className="icon"
