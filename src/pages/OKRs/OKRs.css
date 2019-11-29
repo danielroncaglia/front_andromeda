@@ -159,8 +159,7 @@ transform: translateY(50%);
   flex-direction: inline;
   justify-content: center;
   align-items: center;
-  align-content: center;
-  
+  align-content: center; 
 }
 
 .list_objectives-infos {

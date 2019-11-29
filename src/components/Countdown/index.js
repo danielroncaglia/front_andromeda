@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 
 class Countdown extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class Countdown extends Component {
       const date = this.calculateCountdown(this.props.date);
       date ? this.setState(date) : this.stop();
 
-      // console.log(date);
     }, 1000);
   }
 
@@ -29,7 +28,6 @@ class Countdown extends Component {
   calculateCountdown(endDate) {
     let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
 
-    // clear countdown when date is reached
     if (diff <= 0) return false;
 
     const timeLeft = {
@@ -82,7 +80,7 @@ class Countdown extends Component {
       <div className="Countdown">
         <span className="Countdown-col">
           <strong className="Countdown-col-element">
-              {this.addLeadingZeros(countDown.days)} {countDown.days === 1 ? 'Dia ' : 'Dias '}  -
+              {this.addLeadingZeros(countDown.days)} {countDown.days === 1 ? 'Day ' : 'Days '}  -
           </strong>
         </span>
 

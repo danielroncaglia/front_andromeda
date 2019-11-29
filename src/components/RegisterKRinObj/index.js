@@ -6,10 +6,10 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import api from '../../services/api';
 
-export default class RegisterKR extends Component {
+export default class RegisterKRinObj extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             // listOwner: [],
             Title: "",
@@ -72,7 +72,9 @@ export default class RegisterKR extends Component {
             owner: this.state.Owner.name
         };
 
-        const id = localStorage.getItem("idObjectiveAndromeda");
+        // const id = localStorage.getItem("idObjectiveAndromeda");
+        const id = this.props.idobj
+        console.log("Id dessa porra: ", id)
 
         fetch(`http://192.168.4.35:63600/keyresults/${id}`, {
             body: JSON.stringify(keyresults),
